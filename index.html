@@ -679,8 +679,7 @@ function saveProgram(id) {
   localStorage.setItem("aidpathSaved", JSON.stringify(saved));
   searchPrograms();
 }
-
-function searchPrograms() {
+async function searchPrograms() {
 
   const residency = document.getElementById("residency").value;
   const emirate = document.getElementById("emirate").value;
@@ -688,43 +687,90 @@ function searchPrograms() {
   const query = document.getElementById("searchInput").value
     .trim().toLowerCase();
 
-  const matches = programs.filter(program => {
+  const params = new URLSearchParams();
 
-    const residencyMatch =
-      program.eligibility === "both" ||
-      program.eligibility === residency;
+  if (residency !== "all") {
+    params.append("residency", residency);
+  }
 
-    const categoryMatch =
-      category === "all" || program.category === category;
+  if (category !== "all") {
+    params.append(
+      "category",
+      category === "health" ? "healthcare" : category
+    );
+  }
 
-    const emirateMatch =
-      program.emirates.includes("all") ||
-      program.emirates.includes(emirate);
+  if (emirate !== "all") {
+    params.append(
+      "emirate",
+      emirate.replaceAll("-", "_")
+    );
+  }
 
-    const searchText = [
-      program.name,
-      program.enName,
-      program.description,
-      program.enDescription,
-      categoryNames[program.category][0],
-      categoryNames[program.category][1]
-    ].join(" ").toLowerCase();
+  try {
+
+    const response = await fetch(
+      "https://aidpath.onrender.com/api/programs?" + params.toString()
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to load programs");
+    }
+
+    const data = await response.json();
+
+    const programsFromDatabase = data.map(program => {
+
+      const category = program.category === "healthcare"
+        ? "health"
+        : program.category;
+
+      return {
+        id: program.id,
+        name: program.name,
+        enName: program.name,
+        category: category,
+        eligibility: program.residency,
+        emirates: [program.emirate.replaceAll("_", "-")],
+        description: program.description,
+        enDescription: program.description,
+        requirements: program.requirements,
+        enRequirements: program.requirements,
+        documents: "غير محددة بعد",
+        enDocuments: "Not specified yet",
+        provider: "راجع المصدر الرسمي",
+        enProvider: "See official source",
+        source: program.source
+      };
+
+    });
 
     const words = query.split(/\s+/).filter(Boolean);
 
-    const searchMatch =
-      words.length === 0 ||
-      words.some(word => searchText.includes(word));
+    const matches = programsFromDatabase.filter(program => {
 
-    return residencyMatch &&
-      categoryMatch &&
-      emirateMatch &&
-      searchMatch;
-  });
+      const searchText = [
+        program.name,
+        program.enName,
+        program.description,
+        program.enDescription,
+        ...(categoryNames[program.category] || [])
+      ].join(" ").toLowerCase();
 
-  renderResults(matches);
+      return words.length === 0 ||
+        words.some(word => searchText.includes(word));
+
+    });
+
+    renderResults(matches);
+
+  } catch (error) {
+
+    console.error("AidPath API Error:", error);
+    renderResults([]);
+
+  }
 }
-
 function renderResults(matches) {
 
   const results = document.getElementById("results");
