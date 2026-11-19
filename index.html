@@ -3,9 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AidPath - طريقك إلى الدعم</title>
+<title>AidPath | Find Your Support</title>
 
 <style>
+:root {
+  --navy: #102b46;
+  --teal: #087f75;
+  --mint: #dff5ef;
+  --bg: #f4f7fa;
+  --white: #ffffff;
+  --text: #172b40;
+  --muted: #718096;
+  --border: #e4eaf0;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -14,178 +25,398 @@
 }
 
 body {
-  background: #f4f7fb;
-  color: #172b40;
+  background: var(--bg);
+  color: var(--text);
   line-height: 1.7;
 }
 
+button, input, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
 header {
-  background: #102b46;
+  background: var(--navy);
   color: white;
-  padding: 20px 8%;
+  padding: 17px 7%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 15px;
 }
 
 .logo {
   font-size: 27px;
   font-weight: bold;
+  letter-spacing: .5px;
 }
 
 .logo span {
   color: #5ed6bd;
 }
 
-.hero {
-  background: linear-gradient(135deg, #102b46, #176b73);
+.header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.lang-btn {
   color: white;
+  background: transparent;
+  border: 1px solid #ffffff55;
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+
+.hero {
+  background: linear-gradient(120deg, #102b46, #176b73);
+  color: white;
+  padding: 75px 7%;
+}
+
+.hero-content {
+  max-width: 850px;
+  margin: auto;
   text-align: center;
-  padding: 70px 20px;
 }
 
 .hero h1 {
-  font-size: 38px;
-  margin-bottom: 15px;
+  font-size: clamp(29px, 5vw, 46px);
+  line-height: 1.3;
+  margin-bottom: 17px;
 }
 
 .hero p {
+  color: #dcebed;
+  font-size: 17px;
   max-width: 650px;
   margin: auto;
-  color: #e0eeee;
+}
+
+.hero-label {
+  display: inline-block;
+  color: #baf2e3;
+  border: 1px solid #ffffff35;
+  padding: 5px 14px;
+  border-radius: 30px;
+  font-size: 13px;
+  margin-bottom: 20px;
 }
 
 .container {
-  width: min(850px, 92%);
+  width: min(1100px, 92%);
   margin: 35px auto;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.stat {
+  background: white;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+}
+
+.stat strong {
+  display: block;
+  font-size: 25px;
+  color: var(--teal);
+}
+
+.stat span {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 22px;
+  align-items: start;
 }
 
 .panel {
   background: white;
-  padding: 28px;
+  border: 1px solid var(--border);
   border-radius: 15px;
-  box-shadow: 0 5px 25px #00000008;
-  margin-bottom: 25px;
+  padding: 24px;
+  margin-bottom: 20px;
 }
 
-h2 {
+.panel h2 {
+  font-size: 20px;
   margin-bottom: 18px;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
 }
 
 .field {
   display: flex;
   flex-direction: column;
   gap: 7px;
-}
-
-.full {
-  grid-column: 1 / -1;
+  margin-bottom: 16px;
 }
 
 label {
+  font-size: 14px;
   font-weight: bold;
 }
 
 input, select {
-  padding: 13px;
-  border: 1px solid #d9e0e8;
-  border-radius: 8px;
-  font-size: 15px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
   background: white;
+  color: var(--text);
+  outline: none;
 }
 
-button {
+input:focus, select:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px #087f7518;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 13px;
   border: none;
-  border-radius: 8px;
-  padding: 13px 20px;
-  cursor: pointer;
-  font-size: 15px;
+  background: var(--teal);
+  color: white;
+  border-radius: 9px;
   font-weight: bold;
 }
 
-.search-btn {
-  background: #087f75;
-  color: white;
-  width: 100%;
-  margin-top: 22px;
+.secondary-btn {
+  padding: 10px 15px;
+  border: 1px solid var(--border);
+  background: white;
+  color: var(--text);
+  border-radius: 8px;
 }
 
-.pass-btn {
-  background: #102b46;
-  color: white;
-  width: 100%;
-  margin-top: 15px;
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.notice {
-  background: #fff7e7;
-  color: #76531a;
-  padding: 12px;
+.search-box input {
+  flex: 1;
+}
+
+.search-box button {
+  background: var(--navy);
+  color: white;
+  border: none;
+  padding: 0 20px;
+  border-radius: 9px;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 17px;
+  flex-wrap: wrap;
+}
+
+.results-header h2 {
+  margin: 0;
+}
+
+.result-count {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.program-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 20px;
+  margin-bottom: 15px;
+  transition: .2s;
+}
+
+.program-card:hover {
+  border-color: #8ccfc1;
+  box-shadow: 0 5px 20px #102b460b;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.program-card h3 {
+  font-size: 18px;
+  color: var(--navy);
+}
+
+.category-tag {
+  display: inline-block;
+  background: var(--mint);
+  color: var(--teal);
+  border-radius: 20px;
+  padding: 4px 11px;
+  font-size: 12px;
+  margin: 9px 0;
+}
+
+.demo-tag {
+  display: inline-block;
+  background: #fff2dc;
+  color: #926018;
+  border-radius: 20px;
+  padding: 4px 9px;
+  font-size: 11px;
+}
+
+.program-card p {
+  font-size: 14px;
+  color: #536477;
+  margin: 7px 0;
+}
+
+.reason {
+  background: #f1f8f6;
+  color: #23665d;
+  padding: 10px;
   border-radius: 8px;
   font-size: 13px;
+  margin: 12px 0;
+}
+
+.card-actions {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.details-btn {
+  background: var(--navy);
+  color: white;
+  border: none;
+  padding: 9px 15px;
+  border-radius: 8px;
+}
+
+.save-btn {
+  background: white;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 9px 15px;
+  border-radius: 8px;
+}
+
+.details {
+  display: none;
+  border-top: 1px solid var(--border);
   margin-top: 15px;
+  padding-top: 13px;
 }
 
-.result-card {
-  border: 1px solid #e0e6ed;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
-
-.result-card h3 {
-  color: #087f75;
-  margin-bottom: 8px;
-}
-
-.tag {
-  display: inline-block;
-  background: #e5f5f1;
-  color: #087f75;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-}
-
-.result-card p {
-  font-size: 14px;
-  margin: 7px 0;
+.details.open {
+  display: block;
 }
 
 .empty {
   text-align: center;
-  color: #65758a;
-  padding: 25px;
+  padding: 45px 15px;
+  color: var(--muted);
+  background: white;
+  border-radius: 13px;
+  border: 1px solid var(--border);
+}
+
+.empty h3 {
+  color: var(--text);
+  margin-bottom: 7px;
+}
+
+.pass-panel {
+  background: var(--navy);
+  color: white;
+  border-radius: 14px;
+  padding: 23px;
+  margin-top: 22px;
+}
+
+.pass-panel p {
+  color: #d2dfe9;
+  font-size: 14px;
+  margin: 8px 0 15px;
+}
+
+.pass-button {
+  background: white;
+  color: var(--navy);
+  padding: 11px 15px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+}
+
+.disclaimer {
+  color: var(--muted);
+  text-align: center;
+  font-size: 12px;
+  padding: 25px 10px;
 }
 
 footer {
-  background: #102b46;
-  color: white;
-  text-align: center;
+  background: var(--navy);
+  color: #d2dfe9;
   padding: 25px;
+  text-align: center;
+  font-size: 13px;
 }
 
-@media(max-width:600px) {
-  .form-grid {
+@media(max-width:800px) {
+  .layout {
     grid-template-columns: 1fr;
   }
 
-  .full {
-    grid-column: auto;
+  .stats {
+    grid-template-columns: 1fr 1fr;
   }
+}
 
-  .hero h1 {
-    font-size: 27px;
-  }
-
+@media(max-width:520px) {
   header {
-    flex-wrap: wrap;
+    padding: 15px 5%;
+  }
+
+  .hero {
+    padding: 55px 6%;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .search-box {
+    flex-direction: column;
+  }
+
+  .search-box button {
+    padding: 12px;
+  }
+
+  .panel {
+    padding: 18px;
   }
 }
 </style>
@@ -195,192 +426,562 @@ footer {
 
 <header>
   <div class="logo">Aid<span>Path</span></div>
-  <div>طريقك للوصول إلى الدعم</div>
+  <div class="header-actions">
+    <button class="lang-btn" onclick="toggleLanguage()" id="languageBtn">
+      English
+    </button>
+  </div>
 </header>
 
 <section class="hero">
-  <h1>اكتشف الدعم الذي قد يناسب احتياجك</h1>
-  <p>
-    منصة تساعد المواطنين والمقيمين في الإمارات
-    على اكتشاف برامج الدعم والخدمات المناسبة لهم.
-  </p>
+  <div class="hero-content">
+    <span class="hero-label" id="heroLabel">منصة اكتشاف الدعم في الإمارات</span>
+    <h1 id="heroTitle">اعثر على الدعم الذي تحتاجه</h1>
+    <p id="heroText">
+      اجعل الوصول إلى برامج الدعم والخدمات أسهل.
+      أخبرنا باحتياجك وسنساعدك في اكتشاف الخيارات المتاحة.
+    </p>
+  </div>
 </section>
 
 <main class="container">
 
-<section class="panel">
-  <h2>ابحث عن الدعم المناسب لك</h2>
-
-  <div class="form-grid">
-
-    <div class="field">
-      <label for="residency">صفة الإقامة</label>
-      <select id="residency">
-        <option value="citizen">مواطن إماراتي</option>
-        <option value="resident">مقيم</option>
-      </select>
+  <section class="stats">
+    <div class="stat">
+      <strong id="statPrograms">5</strong>
+      <span id="statProgramsText">برامج تجريبية</span>
     </div>
-
-    <div class="field">
-      <label for="emirate">الإمارة</label>
-      <select id="emirate">
-        <option value="all">جميع الإمارات</option>
-        <option value="abu-dhabi">أبوظبي</option>
-        <option value="dubai">دبي</option>
-        <option value="sharjah">الشارقة</option>
-        <option value="ajman">عجمان</option>
-        <option value="uaq">أم القيوين</option>
-        <option value="rak">رأس الخيمة</option>
-        <option value="fujairah">الفجيرة</option>
-      </select>
+    <div class="stat">
+      <strong>7</strong>
+      <span id="statEmirates">الإمارات المشمولة بالبحث</span>
     </div>
-
-    <div class="field full">
-      <label for="category">مجال المساعدة</label>
-      <select id="category">
-        <option value="all">جميع المجالات</option>
-        <option value="education">التعليم والمنح الدراسية</option>
-        <option value="housing">الإسكان</option>
-        <option value="health">الصحة والعلاج</option>
-        <option value="financial">الدعم المالي والاجتماعي</option>
-        <option value="employment">التوظيف والتدريب</option>
-      </select>
+    <div class="stat">
+      <strong>2</strong>
+      <span id="statLanguages">لغات الواجهة</span>
     </div>
+  </section>
 
-    <div class="field full">
-      <label for="description">اشرح احتياجك</label>
-      <input id="description" type="text"
-        placeholder="مثال: أحتاج مساعدة في الرسوم الدراسية">
-    </div>
+  <div class="layout">
 
+    <aside>
+
+      <section class="panel">
+        <h2 id="filterTitle">بيانات البحث</h2>
+
+        <div class="field">
+          <label id="residencyLabel" for="residency">
+            صفة الإقامة
+          </label>
+          <select id="residency">
+            <option value="citizen">مواطن إماراتي</option>
+            <option value="resident">مقيم</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label id="emirateLabel" for="emirate">الإمارة</label>
+          <select id="emirate">
+            <option value="all">جميع الإمارات</option>
+            <option value="abu-dhabi">أبوظبي</option>
+            <option value="dubai">دبي</option>
+            <option value="sharjah">الشارقة</option>
+            <option value="ajman">عجمان</option>
+            <option value="uaq">أم القيوين</option>
+            <option value="rak">رأس الخيمة</option>
+            <option value="fujairah">الفجيرة</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label id="categoryLabel" for="category">
+            مجال المساعدة
+          </label>
+          <select id="category">
+            <option value="all">جميع المجالات</option>
+            <option value="education">التعليم</option>
+            <option value="housing">الإسكان</option>
+            <option value="health">الصحة</option>
+            <option value="financial">الدعم الاجتماعي</option>
+            <option value="employment">التوظيف</option>
+          </select>
+        </div>
+
+        <button class="primary-btn" onclick="searchPrograms()" id="filterBtn">
+          تطبيق البحث
+        </button>
+      </section>
+
+      <section class="pass-panel">
+        <h3 id="passTitle">الهوية الرقمية</h3>
+        <p id="passText">
+          يمكن مستقبلاً استخدام UAE PASS لتسهيل المصادقة
+          بعد الحصول على الموافقات والتكامل الرسمي.
+        </p>
+        <button class="pass-button" onclick="uaePassDemo()" id="passBtn">
+          UAE PASS
+        </button>
+      </section>
+
+    </aside>
+
+    <section>
+
+      <div class="search-box">
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="اكتب ما تحتاجه..."
+          onkeydown="if(event.key === 'Enter') searchPrograms()"
+        >
+        <button onclick="searchPrograms()" id="searchBtn">
+          بحث
+        </button>
+      </div>
+
+      <div class="results-header">
+        <h2 id="resultsTitle">برامج الدعم</h2>
+        <span class="result-count" id="resultCount"></span>
+      </div>
+
+      <div id="results"></div>
+
+    </section>
   </div>
 
-  <button class="search-btn" onclick="searchPrograms()">
-    ابحث عن برامج الدعم
-  </button>
-
-  <div class="notice">
-    هذه نسخة تجريبية تحتوي على بيانات توضيحية وليست برامج حكومية حقيقية.
+  <div class="disclaimer" id="disclaimer">
+    AidPath منصة إرشادية تجريبية. البيانات المعروضة أمثلة
+    وليست برامج دعم حقيقية أو قرارات أهلية رسمية.
   </div>
-</section>
-
-<section class="panel">
-  <h2>الهوية الرقمية UAE PASS</h2>
-  <p>
-    يمكن مستقبلاً ربط AidPath بالهوية الرقمية
-    لتسهيل تسجيل الدخول، بعد الحصول على الموافقات الرسمية.
-  </p>
-
-  <button class="pass-btn" onclick="uaePassDemo()">
-    تسجيل الدخول باستخدام UAE PASS
-  </button>
-
-  <div class="notice">
-    زر تجريبي فقط، لا ينفذ تسجيل دخول حقيقياً.
-  </div>
-</section>
-
-<section class="panel" id="results">
-  <div class="empty">
-    <h2>نتائج البحث ستظهر هنا</h2>
-    <p>اختر مجال المساعدة واضغط على زر البحث.</p>
-  </div>
-</section>
 
 </main>
 
 <footer>
-  <p>AidPath © 2026</p>
-  <p>Helping people find the support they need.</p>
+  <strong>AidPath</strong>
+  <p id="footerText">طريق أسهل لاكتشاف الدعم المناسب.</p>
+  <p>© 2026 AidPath</p>
 </footer>
 
 <script>
 
+// بيانات تجريبية فقط.
+// لا تمثل هذه البيانات برامج حكومية حقيقية.
+
 const programs = [
   {
-    name: "مثال توضيحي: دعم التعليم",
+    id: 1,
+    name: "برنامج دعم التعليم - مثال",
+    enName: "Education Support - Demo",
     category: "education",
     eligibility: "both",
-    description: "مثال تجريبي لبرنامج دعم الرسوم الدراسية."
+    emirates: ["all"],
+    description: "نموذج تجريبي لبرنامج يساعد في تغطية الرسوم التعليمية.",
+    enDescription: "A demo example of educational fee support.",
+    requirements: "الشروط غير محددة بعد. يلزم التحقق من الجهة الرسمية.",
+    enRequirements: "Requirements are not verified yet.",
+    documents: "المستندات غير محددة بعد.",
+    enDocuments: "Documents are not specified yet.",
+    provider: "جهة تجريبية",
+    enProvider: "Demo provider"
   },
   {
-    name: "مثال توضيحي: دعم الإسكان",
+    id: 2,
+    name: "برنامج دعم الإسكان - مثال",
+    enName: "Housing Support - Demo",
     category: "housing",
     eligibility: "citizen",
-    description: "مثال تجريبي لخدمة مرتبطة بالإسكان."
+    emirates: ["all"],
+    description: "نموذج تجريبي لخدمة متعلقة بالإسكان.",
+    enDescription: "A demo example of housing support.",
+    requirements: "الشروط غير محددة بعد. يلزم التحقق من الجهة الرسمية.",
+    enRequirements: "Requirements are not verified yet.",
+    documents: "المستندات غير محددة بعد.",
+    enDocuments: "Documents are not specified yet.",
+    provider: "جهة تجريبية",
+    enProvider: "Demo provider"
   },
   {
-    name: "مثال توضيحي: الدعم الصحي",
+    id: 3,
+    name: "برنامج الدعم الصحي - مثال",
+    enName: "Health Support - Demo",
     category: "health",
     eligibility: "both",
-    description: "مثال تجريبي لخدمة مساعدة صحية."
+    emirates: ["all"],
+    description: "نموذج تجريبي لخدمة مساعدة صحية.",
+    enDescription: "A demo example of health assistance.",
+    requirements: "الشروط غير محددة بعد. يلزم التحقق من الجهة الرسمية.",
+    enRequirements: "Requirements are not verified yet.",
+    documents: "المستندات غير محددة بعد.",
+    enDocuments: "Documents are not specified yet.",
+    provider: "جهة تجريبية",
+    enProvider: "Demo provider"
   },
   {
-    name: "مثال توضيحي: الدعم الاجتماعي",
+    id: 4,
+    name: "برنامج الدعم الاجتماعي - مثال",
+    enName: "Social Support - Demo",
     category: "financial",
     eligibility: "citizen",
-    description: "مثال تجريبي للمساعدات الاجتماعية."
+    emirates: ["all"],
+    description: "نموذج تجريبي لمساعدة اجتماعية.",
+    enDescription: "A demo example of social assistance.",
+    requirements: "الشروط غير محددة بعد. يلزم التحقق من الجهة الرسمية.",
+    enRequirements: "Requirements are not verified yet.",
+    documents: "المستندات غير محددة بعد.",
+    enDocuments: "Documents are not specified yet.",
+    provider: "جهة تجريبية",
+    enProvider: "Demo provider"
   },
   {
-    name: "مثال توضيحي: التدريب والتوظيف",
+    id: 5,
+    name: "برنامج التدريب والتوظيف - مثال",
+    enName: "Employment Training - Demo",
     category: "employment",
     eligibility: "both",
-    description: "مثال تجريبي لبرامج التدريب."
+    emirates: ["all"],
+    description: "نموذج تجريبي لخدمات التدريب والتوظيف.",
+    enDescription: "A demo example of employment training.",
+    requirements: "الشروط غير محددة بعد. يلزم التحقق من الجهة الرسمية.",
+    enRequirements: "Requirements are not verified yet.",
+    documents: "المستندات غير محددة بعد.",
+    enDocuments: "Documents are not specified yet.",
+    provider: "جهة تجريبية",
+    enProvider: "Demo provider"
   }
 ];
 
+let currentLanguage = "ar";
+
+const categoryNames = {
+  education: ["التعليم", "Education"],
+  housing: ["الإسكان", "Housing"],
+  health: ["الصحة", "Health"],
+  financial: ["الدعم الاجتماعي", "Social Support"],
+  employment: ["التوظيف", "Employment"]
+};
+
+function getSaved() {
+  try {
+    return JSON.parse(localStorage.getItem("aidpathSaved") || "[]");
+  } catch {
+    return [];
+  }
+}
+
+function saveProgram(id) {
+  let saved = getSaved();
+
+  if (saved.includes(id)) {
+    saved = saved.filter(item => item !== id);
+  } else {
+    saved.push(id);
+  }
+
+  localStorage.setItem("aidpathSaved", JSON.stringify(saved));
+  searchPrograms();
+}
+
 function searchPrograms() {
 
-  const residency =
-    document.getElementById("residency").value;
-
-  const category =
-    document.getElementById("category").value;
-
-  const results =
-    document.getElementById("results");
+  const residency = document.getElementById("residency").value;
+  const emirate = document.getElementById("emirate").value;
+  const category = document.getElementById("category").value;
+  const query = document.getElementById("searchInput").value
+    .trim().toLowerCase();
 
   const matches = programs.filter(program => {
-
-    const categoryMatch =
-      category === "all" ||
-      program.category === category;
 
     const residencyMatch =
       program.eligibility === "both" ||
       program.eligibility === residency;
 
-    return categoryMatch && residencyMatch;
+    const categoryMatch =
+      category === "all" || program.category === category;
+
+    const emirateMatch =
+      program.emirates.includes("all") ||
+      program.emirates.includes(emirate);
+
+    const searchText = [
+      program.name,
+      program.enName,
+      program.description,
+      program.enDescription,
+      categoryNames[program.category][0],
+      categoryNames[program.category][1]
+    ].join(" ").toLowerCase();
+
+    const words = query.split(/\s+/).filter(Boolean);
+
+    const searchMatch =
+      words.length === 0 ||
+      words.some(word => searchText.includes(word));
+
+    return residencyMatch &&
+      categoryMatch &&
+      emirateMatch &&
+      searchMatch;
   });
 
+  renderResults(matches);
+}
+
+function renderResults(matches) {
+
+  const results = document.getElementById("results");
+  const count = document.getElementById("resultCount");
+  const saved = getSaved();
+  const en = currentLanguage === "en";
+
+  count.textContent = en
+    ? `${matches.length} results`
+    : `${matches.length} نتائج`;
+
   if (matches.length === 0) {
-    results.innerHTML =
-      "<div class='empty'><h2>لا توجد نتائج</h2></div>";
+    results.innerHTML = `
+      <div class="empty">
+        <h3>${en ? "No results found" : "لم نجد نتائج"}</h3>
+        <p>${en ? "Try changing your search filters." :
+          "جرّب تغيير كلمات البحث أو خيارات الفلترة."}</p>
+      </div>
+    `;
     return;
   }
 
-  let html = "<h2>نتائج البحث</h2>";
+  results.innerHTML = matches.map(program => {
 
-  matches.forEach(program => {
+    const name = en ? program.enName : program.name;
+    const description = en
+      ? program.enDescription
+      : program.description;
 
-    html += `
-      <div class="result-card">
-        <h3>${program.name}</h3>
-        <span class="tag">نتيجة تجريبية</span>
-        <p>${program.description}</p>
-        <p>هذه البيانات توضيحية وليست عرضاً رسمياً.</p>
-      </div>
+    const requirements = en
+      ? program.enRequirements
+      : program.requirements;
+
+    const documents = en
+      ? program.enDocuments
+      : program.documents;
+
+    const provider = en ? program.enProvider : program.provider;
+
+    const categoryName =
+      categoryNames[program.category][en ? 1 : 0];
+
+    const isSaved = saved.includes(program.id);
+
+    const residency = document.getElementById("residency").value;
+
+    const reason = en
+      ? (program.eligibility === "both"
+          ? "This demo record includes citizens and residents."
+          : "This demo record is marked for citizens only.")
+      : (program.eligibility === "both"
+          ? "هذا المثال التجريبي يشمل المواطنين والمقيمين."
+          : "هذا المثال التجريبي محدد للمواطنين فقط.");
+
+    return `
+      <article class="program-card">
+
+        <div class="card-top">
+          <h3>${escapeHTML(name)}</h3>
+          <span class="demo-tag">
+            ${en ? "DEMO DATA" : "بيانات تجريبية"}
+          </span>
+        </div>
+
+        <span class="category-tag">
+          ${escapeHTML(categoryName)}
+        </span>
+
+        <p>${escapeHTML(description)}</p>
+
+        <div class="reason">
+          <strong>${en ? "Matching note:" : "سبب الظهور:"}</strong>
+          ${escapeHTML(reason)}
+        </div>
+
+        <p><strong>${en ? "Provider:" : "الجهة:"}</strong>
+          ${escapeHTML(provider)}</p>
+
+        <div class="card-actions">
+          <button class="details-btn"
+            onclick="toggleDetails(${program.id})">
+            ${en ? "View details" : "عرض التفاصيل"}
+          </button>
+
+          <button class="save-btn"
+            onclick="saveProgram(${program.id})">
+            ${isSaved
+              ? (en ? "★ Saved" : "★ محفوظ")
+              : (en ? "☆ Save" : "☆ حفظ")}
+          </button>
+        </div>
+
+        <div class="details" id="details-${program.id}">
+          <p><strong>${en ? "Requirements:" : "الشروط:"}</strong>
+            ${escapeHTML(requirements)}</p>
+          <p><strong>${en ? "Documents:" : "المستندات:"}</strong>
+            ${escapeHTML(documents)}</p>
+          <p><strong>${en ? "Eligibility:" : "الفئة:"}</strong>
+            ${program.eligibility === "both"
+              ? (en ? "Citizens and residents (demo)" :
+                "مواطنون ومقيمون (مثال)")
+              : (en ? "Citizens (demo)" : "مواطنون (مثال)")}</p>
+        </div>
+
+      </article>
     `;
-  });
+  }).join("");
+}
 
-  results.innerHTML = html;
+function toggleDetails(id) {
+  const element = document.getElementById("details-" + id);
+  element.classList.toggle("open");
+}
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
 }
 
 function uaePassDemo() {
   alert(
-    "تسجيل الدخول الحقيقي عبر UAE PASS يحتاج إلى تكامل رسمي وخادم خلفي."
+    currentLanguage === "ar"
+      ? "هذه واجهة تجريبية. الربط الحقيقي مع UAE PASS يتطلب موافقات وتكاملاً رسمياً وخادماً خلفياً."
+      : "Demo interface only. Real UAE PASS integration requires official approval and a backend."
   );
 }
+
+function toggleLanguage() {
+
+  const en = currentLanguage === "ar";
+  currentLanguage = en ? "en" : "ar";
+
+  document.documentElement.lang = en ? "en" : "ar";
+  document.documentElement.dir = en ? "ltr" : "rtl";
+
+  const text = en ? {
+    btn: "العربية",
+    label: "Support discovery platform in the UAE",
+    title: "Find the support you need",
+    hero: "Discover support programs and services that may match your needs.",
+    filter: "Search information",
+    residency: "Residency status",
+    citizen: "UAE Citizen",
+    resident: "Resident",
+    emirate: "Emirate",
+    allEmirates: "All Emirates",
+    category: "Support category",
+    allCategories: "All categories",
+    education: "Education",
+    housing: "Housing",
+    health: "Health",
+    financial: "Social support",
+    employment: "Employment",
+    apply: "Apply filters",
+    passTitle: "Digital identity",
+    passText: "UAE PASS integration may be added after official approval.",
+    searchPlaceholder: "Describe what you need...",
+    search: "Search",
+    results: "Support programs",
+    disclaimer: "AidPath is a demo guidance platform. Displayed records are examples, not real programs or official eligibility decisions.",
+    footer: "An easier way to discover support.",
+    statPrograms: "Demo programs",
+    statEmirates: "Emirates included",
+    statLanguages: "Interface languages"
+  } : {
+    btn: "English",
+    label: "منصة اكتشاف الدعم في الإمارات",
+    title: "اعثر على الدعم الذي تحتاجه",
+    hero: "اجعل الوصول إلى برامج الدعم والخدمات أسهل. أخبرنا باحتياجك وسنساعدك في اكتشاف الخيارات المتاحة.",
+    filter: "بيانات البحث",
+    residency: "صفة الإقامة",
+    citizen: "مواطن إماراتي",
+    resident: "مقيم",
+    emirate: "الإمارة",
+    allEmirates: "جميع الإمارات",
+    category: "مجال المساعدة",
+    allCategories: "جميع المجالات",
+    education: "التعليم",
+    housing: "الإسكان",
+    health: "الصحة",
+    financial: "الدعم الاجتماعي",
+    employment: "التوظيف",
+    apply: "تطبيق البحث",
+    passTitle: "الهوية الرقمية",
+    passText: "يمكن مستقبلاً استخدام UAE PASS لتسهيل المصادقة بعد الحصول على الموافقات والتكامل الرسمي.",
+    searchPlaceholder: "اكتب ما تحتاجه...",
+    search: "بحث",
+    results: "برامج الدعم",
+    disclaimer: "AidPath منصة إرشادية تجريبية. البيانات المعروضة أمثلة وليست برامج دعم حقيقية أو قرارات أهلية رسمية.",
+    footer: "طريق أسهل لاكتشاف الدعم المناسب.",
+    statPrograms: "برامج تجريبية",
+    statEmirates: "الإمارات المشمولة بالبحث",
+    statLanguages: "لغات الواجهة"
+  };
+
+  document.getElementById("languageBtn").textContent = text.btn;
+  document.getElementById("heroLabel").textContent = text.label;
+  document.getElementById("heroTitle").textContent = text.title;
+  document.getElementById("heroText").textContent = text.hero;
+  document.getElementById("filterTitle").textContent = text.filter;
+  document.getElementById("residencyLabel").textContent = text.residency;
+  document.getElementById("emirateLabel").textContent = text.emirate;
+  document.getElementById("categoryLabel").textContent = text.category;
+  document.getElementById("filterBtn").textContent = text.apply;
+  document.getElementById("passTitle").textContent = text.passTitle;
+  document.getElementById("passText").textContent = text.passText;
+  document.getElementById("searchInput").placeholder = text.searchPlaceholder;
+  document.getElementById("searchBtn").textContent = text.search;
+  document.getElementById("resultsTitle").textContent = text.results;
+  document.getElementById("disclaimer").textContent = text.disclaimer;
+  document.getElementById("footerText").textContent = text.footer;
+  document.getElementById("statProgramsText").textContent = text.statPrograms;
+  document.getElementById("statEmirates").textContent = text.statEmirates;
+  document.getElementById("statLanguages").textContent = text.statLanguages;
+
+  const residency = document.getElementById("residency");
+  residency.options[0].text = text.citizen;
+  residency.options[1].text = text.resident;
+
+  const emirate = document.getElementById("emirate");
+  const emirateNames = en
+    ? ["All Emirates", "Abu Dhabi", "Dubai", "Sharjah", "Ajman", "Umm Al Quwain", "Ras Al Khaimah", "Fujairah"]
+    : ["جميع الإمارات", "أبوظبي", "دبي", "الشارقة", "عجمان", "أم القيوين", "رأس الخيمة", "الفجيرة"];
+
+  emirateNames.forEach((name, index) => {
+    emirate.options[index].text = name;
+  });
+
+  const category = document.getElementById("category");
+  const categoryValues = [
+    text.allCategories,
+    text.education,
+    text.housing,
+    text.health,
+    text.financial,
+    text.employment
+  ];
+
+  categoryValues.forEach((name, index) => {
+    category.options[index].text = name;
+  });
+
+  searchPrograms();
+}
+
+document.querySelectorAll(
+  "#residency, #emirate, #category"
+).forEach(element => {
+  element.addEventListener("change", searchPrograms);
+});
+
+searchPrograms();
 
 </script>
 
