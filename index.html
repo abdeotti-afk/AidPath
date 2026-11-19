@@ -795,59 +795,63 @@ function renderResults(matches) {
 
   results.innerHTML = matches.map(program => {
 
-    const name = en ? program.enName : program.name;
+    const name = en
+      ? (program.enName || program.name)
+      : program.name;
+
     const description = en
-      ? program.enDescription
+      ? (program.enDescription || program.description)
       : program.description;
 
     const requirements = en
-      ? program.enRequirements
+      ? (program.enRequirements || program.requirements)
       : program.requirements;
 
     const documents = en
-      ? program.enDocuments
+      ? (program.enDocuments || program.documents)
       : program.documents;
 
-    const provider = en ? program.enProvider : program.provider;
+    const provider = en
+      ? (program.enProvider || program.provider)
+      : program.provider;
 
     const categoryName =
-      categoryNames[program.category][en ? 1 : 0];
+      (categoryNames[program.category] || ["Other", "Other"])[en ? 1 : 0];
 
     const isSaved = saved.includes(program.id);
 
-    const residency = document.getElementById("residency").value;
+    const reason = program.eligibility === "citizen"
+      ? (en
+          ? "This program is listed for UAE citizens. Other conditions apply."
+          : "البرنامج مسجل للمواطنين الإماراتيين، وتوجد شروط أخرى للاستفادة.")
+      : (en
+          ? "This program may include your residency category. Other conditions apply."
+          : "قد يشمل البرنامج فئة إقامتك، مع وجود شروط أخرى للاستفادة.");
 
-    const reason = en
-      ? (program.eligibility === "both"
-          ? "This demo record includes citizens and residents."
-          : "This demo record is marked for citizens only.")
-      : (program.eligibility === "both"
-          ? "هذا المثال التجريبي يشمل المواطنين والمقيمين."
-          : "هذا المثال التجريبي محدد للمواطنين فقط.");
+    const source = program.source || "";
+    const verifiedAt = program.verifiedAt || program.verified_at || "";
 
     return `
       <article class="program-card">
 
         <div class="card-top">
           <h3>${escapeHTML(name)}</h3>
-          <span class="demo-tag">
-            ${en ? "DEMO DATA" : "بيانات تجريبية"}
+          <span class="category-tag">
+            ${escapeHTML(categoryName)}
           </span>
         </div>
 
-        <span class="category-tag">
-          ${escapeHTML(categoryName)}
-        </span>
-
-        <p>${escapeHTML(description)}</p>
+        <p>${escapeHTML(description || "")}</p>
 
         <div class="reason">
           <strong>${en ? "Matching note:" : "سبب الظهور:"}</strong>
           ${escapeHTML(reason)}
         </div>
 
-        <p><strong>${en ? "Provider:" : "الجهة:"}</strong>
-          ${escapeHTML(provider)}</p>
+        <p>
+          <strong>${en ? "Provider:" : "الجهة:"}</strong>
+          ${escapeHTML(provider || "")}
+        </p>
 
         <div class="card-actions">
           <button class="details-btn"
@@ -864,22 +868,47 @@ function renderResults(matches) {
         </div>
 
         <div class="details" id="details-${program.id}">
-          <p><strong>${en ? "Requirements:" : "الشروط:"}</strong>
-            ${escapeHTML(requirements)}</p>
-          <p><strong>${en ? "Documents:" : "المستندات:"}</strong>
-            ${escapeHTML(documents)}</p>
-          <p><strong>${en ? "Eligibility:" : "الفئة:"}</strong>
-            ${program.eligibility === "both"
-              ? (en ? "Citizens and residents (demo)" :
-                "مواطنون ومقيمون (مثال)")
-              : (en ? "Citizens (demo)" : "مواطنون (مثال)")}</p>
+
+          <p>
+            <strong>${en ? "Requirements:" : "الشروط:"}</strong>
+            ${escapeHTML(requirements || "")}
+          </p>
+
+          <p>
+            <strong>${en ? "Documents:" : "المستندات:"}</strong>
+            ${escapeHTML(documents || "")}
+          </p>
+
+          ${source ? `
+            <p>
+              <strong>${en ? "Official source:" : "المصدر الرسمي:"}</strong>
+              <a href="${escapeHTML(source)}"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                ${en ? "Visit official source" : "زيارة المصدر الرسمي"}
+              </a>
+            </p>
+          ` : ""}
+
+          ${verifiedAt ? `
+            <p>
+              <strong>${en ? "Last verified:" : "آخر تحقق:"}</strong>
+              ${escapeHTML(verifiedAt)}
+            </p>
+          ` : ""}
+
+          <p class="reason">
+            ${en
+              ? "This information is for guidance only. It is not an official eligibility decision or approval."
+              : "هذه المعلومات إرشادية فقط، ولا تمثل قرار أهلية أو موافقة رسمية من الحكومة."}
+          </p>
+
         </div>
 
       </article>
     `;
   }).join("");
 }
-
 function toggleDetails(id) {
   const element = document.getElementById("details-" + id);
   element.classList.toggle("open");
