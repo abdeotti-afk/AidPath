@@ -11,6 +11,7 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+
 def database():
     return sqlite3.connect("aidpath.db")
 
@@ -27,53 +28,56 @@ def setup():
             emirate TEXT,
             description TEXT,
             requirements TEXT,
-            source TEXT
+            source TEXT,
+            verified_at TEXT
         )
     """)
 
-    programs = [
-        (
-            "Demo Education Support",
-            "education",
-            "citizen",
-            "all",
-            "Sample education support program.",
-            "Demo data only.",
-            "https://u.ae/"
-        ),
-        (
-            "Demo Housing Support",
-            "housing",
-            "citizen",
-            "abu_dhabi",
-            "Sample housing support program.",
-            "Demo data only.",
-            "https://u.ae/"
-        ),
-        (
-            "Demo Healthcare Support",
-            "healthcare",
-            "resident",
-            "all",
-            "Sample healthcare support program.",
-            "Demo data only.",
-            "https://u.ae/"
-        )
+    # Add verification date column to older databases
+    columns = [
+        row[1] for row in
+        db.execute("PRAGMA table_info(programs)").fetchall()
     ]
 
-    for program in programs:
-        exists = db.execute(
-            "SELECT id FROM programs WHERE name = ?",
-            (program[0],)
-        ).fetchone()
+    if "verified_at" not in columns:
+        db.execute(
+            "ALTER TABLE programs ADD COLUMN verified_at TEXT"
+        )
 
-        if not exists:
-            db.execute("""
-                INSERT INTO programs
-                (name, category, residency, emirate,
-                 description, requirements, source)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
-            """, program)
+    # Remove old demonstration programs
+    db.execute("""
+        DELETE FROM programs
+        WHERE name LIKE 'Demo %'
+    """)
+
+    program = (
+        "برنامج الدعم الاجتماعي الاتحادي",
+        "financial",
+        "citizen",
+        "all",
+        "برنامج اتحادي يقدم مساعدات مالية شهرية للأسر الإماراتية "
+        "ذات الدخل المحدود، وفق شروط ومعايير تحددها الوزارة.",
+        "يشترط أن يكون المستفيد مواطناً ومقيماً إقامة دائمة في الإمارات. "
+        "يجب ألا يقل عمر المستفيد الرئيسي عن 21 سنة. "
+        "تطبق شروط الدخل والعمل والتقاعد والأصول المالية، "
+        "مع وجود استثناءات لبعض الحالات الاجتماعية والصحية. "
+        "هذه معلومات إرشادية وليست قرار أهلية رسمي.",
+        "https://www.moce.gov.ae/en/web/guest/w/social-welfare",
+        "2026-11-19"
+    )
+
+    exists = db.execute(
+        "SELECT id FROM programs WHERE name = ?",
+        (program[0],)
+    ).fetchone()
+
+    if not exists:
+        db.execute("""
+            INSERT INTO programs
+            (name, category, residency, emirate,
+             description, requirements, source, verified_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """, program)
 
     db.commit()
     db.close()
@@ -87,7 +91,7 @@ def home():
     return {
         "project": "AidPath",
         "status": "Running",
-        "version": "2.0"
+        "version": "3.0"
     }
 
 
