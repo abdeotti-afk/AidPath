@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AidPath - طريقك إلى الدعم</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: #f4f7fb;
+  color: #172b40;
+  line-height: 1.7;
+}
+
+header {
+  background: #102b46;
+  color: white;
+  padding: 20px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #5ed6bd;
+}
+
+.hero {
+  background: linear-gradient(135deg, #102b46, #176b73);
+  color: white;
+  text-align: center;
+  padding: 70px 20px;
+}
+
+.hero h1 {
+  font-size: 38px;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  max-width: 650px;
+  margin: auto;
+  color: #e0eeee;
+}
+
+.container {
+  width: min(850px, 92%);
+  margin: 35px auto;
+}
+
+.panel {
+  background: white;
+  padding: 28px;
+  border-radius: 15px;
+  box-shadow: 0 5px 25px #00000008;
+  margin-bottom: 25px;
+}
+
+h2 {
+  margin-bottom: 18px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  font-weight: bold;
+}
+
+input, select {
+  padding: 13px;
+  border: 1px solid #d9e0e8;
+  border-radius: 8px;
+  font-size: 15px;
+  background: white;
+}
+
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 13px 20px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.search-btn {
+  background: #087f75;
+  color: white;
+  width: 100%;
+  margin-top: 22px;
+}
+
+.pass-btn {
+  background: #102b46;
+  color: white;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.notice {
+  background: #fff7e7;
+  color: #76531a;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-top: 15px;
+}
+
+.result-card {
+  border: 1px solid #e0e6ed;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.result-card h3 {
+  color: #087f75;
+  margin-bottom: 8px;
+}
+
+.tag {
+  display: inline-block;
+  background: #e5f5f1;
+  color: #087f75;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.result-card p {
+  font-size: 14px;
+  margin: 7px 0;
+}
+
+.empty {
+  text-align: center;
+  color: #65758a;
+  padding: 25px;
+}
+
+footer {
+  background: #102b46;
+  color: white;
+  text-align: center;
+  padding: 25px;
+}
+
+@media(max-width:600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full {
+    grid-column: auto;
+  }
+
+  .hero h1 {
+    font-size: 27px;
+  }
+
+  header {
+    flex-wrap: wrap;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Aid<span>Path</span></div>
+  <div>طريقك للوصول إلى الدعم</div>
+</header>
+
+<section class="hero">
+  <h1>اكتشف الدعم الذي قد يناسب احتياجك</h1>
+  <p>
+    منصة تساعد المواطنين والمقيمين في الإمارات
+    على اكتشاف برامج الدعم والخدمات المناسبة لهم.
+  </p>
+</section>
+
+<main class="container">
+
+<section class="panel">
+  <h2>ابحث عن الدعم المناسب لك</h2>
+
+  <div class="form-grid">
+
+    <div class="field">
+      <label for="residency">صفة الإقامة</label>
+      <select id="residency">
+        <option value="citizen">مواطن إماراتي</option>
+        <option value="resident">مقيم</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="emirate">الإمارة</label>
+      <select id="emirate">
+        <option value="all">جميع الإمارات</option>
+        <option value="abu-dhabi">أبوظبي</option>
+        <option value="dubai">دبي</option>
+        <option value="sharjah">الشارقة</option>
+        <option value="ajman">عجمان</option>
+        <option value="uaq">أم القيوين</option>
+        <option value="rak">رأس الخيمة</option>
+        <option value="fujairah">الفجيرة</option>
+      </select>
+    </div>
+
+    <div class="field full">
+      <label for="category">مجال المساعدة</label>
+      <select id="category">
+        <option value="all">جميع المجالات</option>
+        <option value="education">التعليم والمنح الدراسية</option>
+        <option value="housing">الإسكان</option>
+        <option value="health">الصحة والعلاج</option>
+        <option value="financial">الدعم المالي والاجتماعي</option>
+        <option value="employment">التوظيف والتدريب</option>
+      </select>
+    </div>
+
+    <div class="field full">
+      <label for="description">اشرح احتياجك</label>
+      <input id="description" type="text"
+        placeholder="مثال: أحتاج مساعدة في الرسوم الدراسية">
+    </div>
+
+  </div>
+
+  <button class="search-btn" onclick="searchPrograms()">
+    ابحث عن برامج الدعم
+  </button>
+
+  <div class="notice">
+    هذه نسخة تجريبية تحتوي على بيانات توضيحية وليست برامج حكومية حقيقية.
+  </div>
+</section>
+
+<section class="panel">
+  <h2>الهوية الرقمية UAE PASS</h2>
+  <p>
+    يمكن مستقبلاً ربط AidPath بالهوية الرقمية
+    لتسهيل تسجيل الدخول، بعد الحصول على الموافقات الرسمية.
+  </p>
+
+  <button class="pass-btn" onclick="uaePassDemo()">
+    تسجيل الدخول باستخدام UAE PASS
+  </button>
+
+  <div class="notice">
+    زر تجريبي فقط، لا ينفذ تسجيل دخول حقيقياً.
+  </div>
+</section>
+
+<section class="panel" id="results">
+  <div class="empty">
+    <h2>نتائج البحث ستظهر هنا</h2>
+    <p>اختر مجال المساعدة واضغط على زر البحث.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>AidPath © 2026</p>
+  <p>Helping people find the support they need.</p>
+</footer>
+
+<script>
+
+const programs = [
+  {
+    name: "مثال توضيحي: دعم التعليم",
+    category: "education",
+    eligibility: "both",
+    description: "مثال تجريبي لبرنامج دعم الرسوم الدراسية."
+  },
+  {
+    name: "مثال توضيحي: دعم الإسكان",
+    category: "housing",
+    eligibility: "citizen",
+    description: "مثال تجريبي لخدمة مرتبطة بالإسكان."
+  },
+  {
+    name: "مثال توضيحي: الدعم الصحي",
+    category: "health",
+    eligibility: "both",
+    description: "مثال تجريبي لخدمة مساعدة صحية."
+  },
+  {
+    name: "مثال توضيحي: الدعم الاجتماعي",
+    category: "financial",
+    eligibility: "citizen",
+    description: "مثال تجريبي للمساعدات الاجتماعية."
+  },
+  {
+    name: "مثال توضيحي: التدريب والتوظيف",
+    category: "employment",
+    eligibility: "both",
+    description: "مثال تجريبي لبرامج التدريب."
+  }
+];
+
+function searchPrograms() {
+
+  const residency =
+    document.getElementById("residency").value;
+
+  const category =
+    document.getElementById("category").value;
+
+  const results =
+    document.getElementById("results");
+
+  const matches = programs.filter(program => {
+
+    const categoryMatch =
+      category === "all" ||
+      program.category === category;
+
+    const residencyMatch =
+      program.eligibility === "both" ||
+      program.eligibility === residency;
+
+    return categoryMatch && residencyMatch;
+  });
+
+  if (matches.length === 0) {
+    results.innerHTML =
+      "<div class='empty'><h2>لا توجد نتائج</h2></div>";
+    return;
+  }
+
+  let html = "<h2>نتائج البحث</h2>";
+
+  matches.forEach(program => {
+
+    html += `
+      <div class="result-card">
+        <h3>${program.name}</h3>
+        <span class="tag">نتيجة تجريبية</span>
+        <p>${program.description}</p>
+        <p>هذه البيانات توضيحية وليست عرضاً رسمياً.</p>
+      </div>
+    `;
+  });
+
+  results.innerHTML = html;
+}
+
+function uaePassDemo() {
+  alert(
+    "تسجيل الدخول الحقيقي عبر UAE PASS يحتاج إلى تكامل رسمي وخادم خلفي."
+  );
+}
+
+</script>
+
+</body>
+</html>
